@@ -1,0 +1,24 @@
+﻿@model Registration
+@{
+    ViewData["Title"] = "RegistrationThankYou";
+}
+
+<h1>Thank You!</h1>
+
+<link href="/css/styles.css" rel="stylesheet" />
+
+<div class="ThankYouBox">
+    Thank you @Model.FirstName @Model.LastName for registering to join GC Coffee Shop!
+    <br />
+    Please confirm your information or go back to the registration page, if changes are needed:
+    <br />
+    <ul>
+        <li>Name: @Model.FirstName @Model.LastName</li>
+        <li>Email: <a href="mailto: @Model.EmailAddress">@Model.EmailAddress</a></li>
+        <li>Phone: <a href="tel: @Model.PhoneNumber">@Model.PhoneNumber</a></li>
+        <li>Password Set: <a href="tel: @Model.Password">@Model.Password</a></li>
+    </ul>
+    We will contact you at <a href="mailto: @Model.EmailAddress">@Model.EmailAddress</a> with any new updates or specials.
+    <br />
+    Don't forget to come in for your free beverage, for signing up!
+</div>

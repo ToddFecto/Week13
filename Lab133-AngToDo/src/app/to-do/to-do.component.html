@@ -1,0 +1,15 @@
+<div>
+<h2>ToDo List</h2>
+<ng-container *ngFor="let mylist of thetodos">
+    <div>
+        {{mylist.task}} - Completed(true/false): {{mylist.completed}}
+    </div>
+</ng-container>
+<br />
+<input type="text" [(ngModel)]="newtask" />
+
+<button (click)="addTask()">Add Task</button>
+<button (click)="eraseLast()">Erase Last</button>
+<br /><br />
+Task you're adding: {{newtask}}
+</div>

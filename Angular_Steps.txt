@@ -1,0 +1,35 @@
+Create your interface
+Add a component
+Make an array of that interface, and fill it with test data just like our thepets member
+Do an *ngFor loop and loop through the array and list what's in it (just like all-pets.component.html sample)
+Add a member variable that you will bind a textbox to (like the newname member variable in all-pets.component.ts)
+Add a textbox to your html, and bind that textbox to that variable. However, you will need to add a line to your app.module.ts, the FormsModule in the imports array
+Now you can finish binding the input box using [(ngModel)]
+Add a button and a function that the button calls. Remember to use parens around the click, and parens inside the click attribute (as in <button (click)="addName()">Add</button> )
+
+==================================
+Steps for creating an angular app with bash shell and VS Code.
+
+From bash shell, go to your dev folder and type the following (but replace "myapp" with the name of your app):
+
+ng new myapp
+cd myapp
+code .
+When you want to create an interface, make sure you're in the myapp folder and type the following (but replace "pet" with the name of your interface):
+
+ng generate interface pet
+When you want to create a component, make sure you're in the myapp folder and type the following (but replace "show-pet" with the name of your component):
+
+ng generate component show-petSteps for creating an angular app with bash shell and VS Code.
+
+From bash shell, go to your dev folder and type the following (but replace "myapp" with the name of your app):
+
+ng new myapp
+cd myapp
+code .
+When you want to create an interface, make sure you're in the myapp folder and type the following (but replace "pet" with the name of your interface):
+
+ng generate interface pet
+When you want to create a component, make sure you're in the myapp folder and type the following (but replace "show-pet" with the name of your component):
+
+ng generate component show-pet

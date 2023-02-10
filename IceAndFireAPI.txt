@@ -1,0 +1,221 @@
+==============HomeController - Index===================
+        public async Task<IActionResult> Index(string name)
+        {
+            if (name == null)
+            {
+                name = await DAL.GetSpecificCharacter(name);
+            }
+            name = await DAL.GetSpecificCharacter(name);
+            Character actors = await DAL.GetAllCharacters(name);
+            return View(actors);
+        }
+
+
+=================Index View===============
+
+@model List<Character>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ice and Fire Characters</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Played By</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Character actor in Model)
+        {
+            <tr>
+                <td>@actor.name</td>
+                <td>@actor.gender</td>
+                <td>@actor.playedBy</td>
+                <td>
+            </tr>
+        }
+    </tbody>
+</table>
+=============================================================================================================
+=============Class Character============
+    public class Character
+    {
+        public string Name { get; set; }
+        public string Gender { get; set; }
+        public string[] PlayedBy { get; set; }
+    }
+}
+
+==============Index View==============
+@model List<Character>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Played By</th>
+        </tr>
+    </thead>
+
+    @foreach (var character in Model)
+    {
+
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>@character.Name</td>
+                <td>@character.Gender</td>
+
+                @foreach (var actor in character.PlayedBy)
+                {
+
+                    <td>@actor</td>
+                }
+
+            </tr>
+        </tbody>
+    }
+</table>
+
+==============DAL===============
+    public class DAL
+    {
+        private static HttpClient client = null;
+        private static HttpClient GetHttpClient()
+        {
+            if (client == null)
+            {
+                client = new HttpClient();
+                client.BaseAddress = new Uri("https://anapioficeandfire.com");
+            }
+            return client;
+        }
+        public static async Task<Character> GetCharacterById(int characterId)
+        {
+
+            //using var client = new HttpClient();
+            //client.BaseAddress = new Uri("https://www.anapioficeandfire.com/api/");
+
+            string path = $"characters/{characterId}";
+            var connection = await GetHttpClient().GetAsync(path);
+            Character result = await connection.Content.ReadAsAsync<Character>();
+            //responseTask.Wait();
+
+            //var result = responseTask.Result;
+
+            //var readTask = result.Content.ReadAsAsync<Character>();
+            //readTask.Wait();
+
+            //var character = readTask.Result;
+
+            return result;
+
+        }
+
+    }
+
+===============HomeController Index=========================
+        public async Task<IActionResult> Index()
+        {
+            var character1 = await DAL.GetCharacterById(730);
+            var character2 = await DAL.GetCharacterById(583);
+            var character3 = await DAL.GetCharacterById(12);
+            var character4 = await DAL.GetCharacterById(2);
+            var character5 = await DAL.GetCharacterById(16);
+
+            List<Character> listofCharacters = new List<Character>
+            {
+                character1,
+                character2,
+                character3,
+                character4,
+                character5
+            };
+
+            return View(listofCharacters);
+        }
+
+=====HomeController Single==========
+        public async Task<IActionResult> Index()
+        {
+            var characterFromAPI = await DAL.GetCharacterById(730);
+
+            return View(characterFromAPI);
+        }
+
+=======================Working Parts==============================
+Home/Index:
+        public async Task<IActionResult> Index()
+        {
+            var characterFromAPI = await DAL.GetCharacterById(1303);
+
+            return View(characterFromAPI);
+        }
+================================IndexView=============
+@model Character
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<p>Name: @Model.Name</p>
+<p>Gender: @Model.Gender</p>
+
+===========================DAL==================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace Assessment9_IceAndFire_After.Models
+{
+    public class DAL
+    {
+        public static async Task<Character> GetCharacterById(int characterId)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://www.anapioficeandfire.com/api/");
+            var responseTask = client.GetAsync($"characters/{characterId}");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+
+            var readTask = result.Content.ReadAsAsync<Character>();
+            readTask.Wait();
+
+            var character = readTask.Result;
+
+            return character;
+        }
+    }
+}
+================CharacterModel==============
+using Dapper.Contrib.Extensions;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Assessment9_IceAndFire_After.Models
+{
+    public class Character
+    {
+        public string Name { get; set; }
+        public string Gender { get; set; }
+        public string[] PlayedBy { get; set; }    OR  public List<string> PlayedBy { get; set; }
+    }
+}

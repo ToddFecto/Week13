@@ -1,0 +1,15 @@
+<div>
+    <h2>Current Pets</h2>
+    <ng-container *ngFor="let mypet of thepets">
+        <div>
+            {{mypet.name}} born {{mypet.birth}}
+        </div>
+    </ng-container>
+    <br />
+    <input type="text" [(ngModel)]="newname" />
+    <input type="text" [(ngModel)]="newyear" />
+    <button (click)="addName()">Add</button>
+    <button (click)="removeLast()">Remove Last</button>
+    <br /><br />
+    You are entering {{newname}}
+</div>

@@ -1,0 +1,111 @@
+Lab13_1_ClientSideValidation_JS:
+
+Registration Form Before setting just for JavaScript validation of fields:
+
+<div>
+    @ViewData["Message"]
+</div>
+======================JavaScript Novalidate tag====================
+<form novalidate id="RegistrationForm" method="post" action="/Home/RegistrationThankYou">
+    <label for="First Name">First Name:</label>
+    <input type="text" id="FirstName" name="FirstName" required /><span class="warning" id="FirstNameW"></span><br />
+    <label for="Last Name">Last Name:</label>
+    <input type="text" id="LastName" name="LastName" required /><span class="warning" id="LastNameW"></span><br />
+    <label for="Email Address">Email Address:</label>
+    <input type="email" id="EmailAddress" name="EmailAddress" required /><span class="warning" id="EmailW"></span><br />
+    <label for="PhoneNumber">Phone Number:</label>
+    <input type="tel" id="PhoneNumber" name="PhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /><small>Format: 123-456-7890</small><span class="warning" id="PhoneNumberW"></span><br />
+    <label for="Password">Password:</label>
+    <input type="Password" id="Password" name="Password" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*?[0-9])(?=.*?[~`!\x40#$%\^&*()\-_=+[\]{};:\x27.,\x22\\|/?><]).{8,}"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" required /><span class="warning" id="PasswordW"></span><br />
+    <label for="ConfirmPassword">Confirm Password:</label>
+    <input type="Password" id="ConfirmPassword" name="ConfirmPassword" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*?[0-9])(?=.*?[~`!\x40#$%\^&*()\-_=+[\]{};:\x27.,\x22\\|/?><]).{8,}"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" required /><span class="warning" id="ConfirmPasswordW"></span><br />
+    <input type="submit" value="Register" />
+</form>
+===========================Without JS NoValidate tag allowing in-browser validation===========
+<div id="message" class="warning"></div>
+<form id="RegistrationForm" method="post" action="/Home/RegistrationThankYou">
+    <label for="First Name">First Name:</label>
+    <input type="text" id="FirstName" name="FirstName" required /><span class="warning" id="FirstNameW"></span><br />
+    <label for="Last Name">Last Name:</label>
+    <input type="text" id="LastName" name="LastName" required /><span class="warning" id="LastNameW"></span><br />
+    <label for="Email Address">Email Address:</label>
+    <input type="email" id="EmailAddress" name="EmailAddress" required /><span class="warning" id="EmailW"></span><br />
+    <label for="PhoneNumber">Phone Number:</label>
+    <input type="tel" id="PhoneNumber" name="PhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /><small>Format: 123-456-7890</small><span class="warning" id="PhoneNumberW"></span><br />
+    <label for="Password">Password:</label>
+    <input type="Password" id="Password" name="Password" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*?[0-9])(?=.*?[~`!\x40#$%\^&*()\-_=+[\]{};:\x27.,\x22\\|/?><]).{8,}"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" required /><span class="warning" id="PasswordW"></span><br />
+    <label for="ConfirmPassword">Confirm Password:</label>
+    <input type="Password" id="ConfirmPassword" name="ConfirmPassword" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*?[0-9])(?=.*?[~`!\x40#$%\^&*()\-_=+[\]{};:\x27.,\x22\\|/?><]).{8,}"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" required /><span class="warning" id="ConfirmPasswordW"></span><br />
+    <input type="submit" value="Register" />
+</form>
+
+=====Inside <Script> at end=======
+
+    function clearMessage() {
+        document.querySelector('#message').innerText = '';
+    }
+
+    let b = document.querySelector('#regsubmit');
+    b.addEventListener('click', RegistrationForm);
+
+    let t1 = document.querySelector('#regsubmit');
+    t1.addEventListener('keypress', clearmessage);
+
+    let t2 = document.querySelector('#FirstName');
+    t2.addEventListener('keypress', clearmessage);
+    let t3 = document.querySelector('#LastName');
+    t3.addEventListener('keypress', clearmessage);
+    let t4 = document.querySelector('#EmailAddress');
+    t4.addEventListener('keypress', clearmessage);
+    let t5 = document.querySelector('#PhoneNumber');
+    t5.addEventListener('keypress', clearmessage);
+    let t6 = document.querySelector('#Password');
+    t6.addEventListener('keypress', clearmessage);
+    let t7 = document.querySelector('#ConfirmPassword');
+    t7.addEventListener('keypress', clearmessage);
+=====
+    function clearMessage() {
+        document.querySelector('#message').innerHTML = '';
+    }
+
+    let b = document.querySelector('#regsubmit');
+    b.addEventListener('click', RegistrationForm);
+
+    let t1 = document.querySelector('#regsubmit');
+    t1.addEventListener('keypress', clearmessage);
+
+    let t2 = document.querySelector('#FirstName');
+    t2.addEventListener('keypress', clearmessage);
+    let t3 = document.querySelector('#LastName');
+    t3.addEventListener('keypress', clearmessage);
+    let t4 = document.querySelector('#EmailAddress');
+    t4.addEventListener('keypress', clearmessage);
+    let t5 = document.querySelector('#PhoneNumber');
+    t5.addEventListener('keypress', clearmessage);
+    let t6 = document.querySelector('#Password');
+    t6.addEventListener('keypress', clearmessage);
+    let t7 = document.querySelector('#ConfirmPassword');
+    t7.addEventListener('keypress', clearmessage);
+
+==========================Stripped out fields for JavaScript Validation================
+<form id="RegistrationForm" method="post" action="/Home/useform">
+    <label for="First Name">First Name:</label>
+    <input type="text" id="FirstName" name="FirstName" /><span class="warning" id="FirstNameW"></span><br />
+    <label for="Last Name">Last Name:</label>
+    <input type="text" id="LastName" name="LastName" /><span class="warning" id="LastNameW"></span><br />
+    <label for="Email Address">Email Address:</label>
+    <input type="text" id="EmailAddress" name="EmailAddress" /><span class="warning" id="EmailW"></span><br />
+    <label for="PhoneNumber">Phone Number:</label>
+    <input type="text" id="PhoneNumber" name="PhoneNumber" /><small>Format: 123-456-7890</small><br />
+    <label for="Password">Password:</label>
+    <input type="text" id="Password" name="Password"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" /><span class="warning" id="PasswordW"></span><br />
+    <label for="ConfirmPassword">Confirm Password:</label>
+    <input type="text" id="ConfirmPassword" name="ConfirmPassword"
+           title="Must match and contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 or more characters" /><span class="warning" id="ConfirmPasswordW"></span><br />
+    <input type="submit" value="Register" />
+</form>
